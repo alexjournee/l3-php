@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-class Product
+class Product implements EntityInterface
 {
 
     private $name;
@@ -26,7 +26,7 @@ class Product
     /**
      * @param mixed $price
      */
-    public function setPrice($price): void
+    public function setPrice($price)
     {
         $this->price = $price;
     }
@@ -42,7 +42,7 @@ class Product
     /**
      * @param mixed $name
      */
-    public function setName($name): void
+    public function setName($name)
     {
         $this->name = $name;
     }
