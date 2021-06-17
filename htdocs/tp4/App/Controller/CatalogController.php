@@ -3,11 +3,12 @@
 
 namespace App\Controller;
 
-
-class CatalogController
+class CatalogController extends AbstractController
 {
-    public function catalog()
+
+    public function view()
     {
-        return 'Catalog Controller';
+        $list_product = ['eh', 'merce', 'Damien'];
+        echo $this->render('catalogue/view.phtml', ['products' => $list_product]);
     }
 }
