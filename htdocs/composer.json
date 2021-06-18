@@ -1,0 +1,14 @@
+{
+    "name": "l3/web",
+    "description": "cours web L3",
+    "license": "mit",
+    "authors": [
+        {
+            "name": "alexandre.journee",
+            "email": "alexandre.journee@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.3"
+    }
+}
