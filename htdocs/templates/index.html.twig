@@ -5,11 +5,30 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Bienvenue sur la Home Page</h1>
+    <h1>Bienvenue sur la Home Page, site de prono sportif</h1>
 
     {% if app.user %}
         <div class="mb-3">
             Vous êtes connecté en tant que {{ app.user.email }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+            <br>
+            Accéder aux infos de mon compte <a href="/compte">Mon compte</a>
         </div>
+    {%  else %}
+        <div class="mb-3">
+            Vous n'êtes pas connecté, <a href="/login">Se connecter</a>
+        </div>
+    <div class="mb-3">
+        Vous n'avez pas encore de compte ? C'est le moment d'en créer un ! <a href="/register">Se créer un compte</a>
+    </div>
     {% endif %}
+    <div class="mb-3">
+        Liste des matchs ! <a href="/liste">Liste</a>
+    </div>
+    <div class="mb-3">
+        Vous avez des questions ? Contacter nous <a href="/contact">Contact</a>
+    </div>
+    <div class="mb-3">
+        Le classement est juste ici <a href="/classement">Classement</a>
+    </div>
+
 {% endblock %}

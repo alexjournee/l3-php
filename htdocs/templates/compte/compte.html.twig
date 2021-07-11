@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div><a href="/">Home Page</a></div>
+    <h1>Mon compte</h1>
+    {% for pari in paris %}
+
+        <div style="display: flex; border: solid black 1px; color: black; height: auto">
+            <div style="display: inline-block; ">
+                <div>Vous avez parié :</div>
+                <div>{{ matchs[pari.getIdMatch()+1].teams.domicile }} {{ pari.getScoreDomicile() }}</div>
+                <div>{{ matchs[pari.getIdMatch()+1].teams.exterieur }} {{ pari.getScoreExterieur() }}</div>
+            </div>
+            <div style="display: inline-block;">
+                {% if matchs[pari.getIdMatch()+1].scores is defined %}
+                    {% set winner = pari.getScoreDomicile() > pari.getScoreExterieur() ? "domicile" : "exterieur" %}
+                    {% if matchs[pari.getIdMatch()+1].scores.exterieur == pari.getScoreExterieur() and matchs[pari.getIdUser()+1].scores.domicile == pari.getScoreDomicile() %}
+                        <div>3 points.</div>
+                    {% endif %}
+                {% else %}
+                    <div>La match n'a pas encore été joué.</div>
+                {% endif %}
+            </div>
+        </div>
+
+    {% endfor %}
+    <div>score : {{ point }} points</div>
+{% endblock %}

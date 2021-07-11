@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Liste des matchs
+{% endblock %}
+
+{% block body %}
+    <div><a href="/">Home Page</a></div>
+    <h1>Bienvenue sur la liste des matchs où vous pouvez parier</h1>
+
+    {% set cpt = 0 %}
+        {% for match in listeMatchs %}
+        <div style="border: solid black 1px; color: black; height: auto">
+            <div style="display: block;">
+                <div>Le {{ match.date|split(' ')[0]|split('-')[2] }}/{{ match.date|split(' ')[0]|split('-')[1] }}/{{ match.date|split(' ')[0]|split('-')[0] }}
+                    à {{ match.date|split(' ')[1]|split(':')[0] }}h {{ match.date|split(' ')[1]|split(':')[1] }}</div>
+                <div>{{ match.teams.domicile }}</div>
+                <div>{{ match.teams.exterieur }}</div>
+
+            </div>
+            {% if match.date|date("U") < "now"|date("U")  %}
+                <div style="display: inline-block; ">
+                    {% if match.scores.tireaubut == true %}
+                        {% set winner = match.scores.winner %}
+                        <div>gagnant par tir au but {{ match.teams[winner] }}</div>
+                    {% else %}
+                        {% set winner = match.scores.domicile > match.scores.exterieur ? match.teams.domicile : match.teams.exterieur  %}
+                        <div>{{ match.teams.domicile }} {{ match.scores.domicile }} / {{ match.scores.exterieur }} {{ match.teams.exterieur }}</div>
+                        <div>gagnant {{ winner }}</div>
+                    {% endif %}
+                </div>
+            {% elseif app.user %}
+                <div style="display: inline-block;">
+                    <form method="post" action="parier">
+                        <div>
+
+                            <input type="hidden" value="{{ cpt }}" name="id_match">
+                            <label for="score_domicile">Score {{ match.teams.domicile }}</label>
+                            <input type="number" name="score_domicile" id="ScoreDomicile" required autofocus>
+                        </div>
+                        <div>
+                            <label for="score_exterieur">Score {{ match.teams.exterieur }}</label>
+                            <input type="number"  name="score_exterieur" id="ScoreExterieur" required autofocus>
+                        </div>
+                        <div style="width: fit-content;">
+                            <button type="submit">
+                                Je parie
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            {% else %}
+                <div style="display: inline-block;">Vous ne pouvez pas parier sans être connecté ! <a href="/login">Je me connecte</a></div>
+            {% endif %}
+        </div>
+        {% set cpt = cpt + 1 %}
+    {% endfor %}
+{% endblock %}
